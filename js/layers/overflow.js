@@ -11,17 +11,15 @@ addLayer("overflow", {
         player.overflow.bestTimeThisEternity = player.overflow.bestTimeThisEternity.max(player.m.time)
     },
     prestigeButtonText() { 
-        return "继续让点数增量以获得 <b>+" + formatWhole(this.getResetGain()) + `</b> 超限(总计超限:${formatWhole(player.overflow.total)})` + ((this.getResetGain().gte(1000)) ? "" : ("<br/>下一个于 " + format(this.getNextAt()) + " 点数"))
+        return "继续让点数增量以获得 <b>+" + formatWhole(this.getResetGain()) + `</b> 超限(总计超限:${formatWhole(player.overflow.total)})` + ((this.getResetGain().gte(1)) ? "" : ("<br/>下一个于 " + format(this.getNextAt()) + " 点数"))
     },
     getResetGain() {
-        var mult = this.gainMult()
-        var pow = this.gainExp()
-        return player.points.add(10).slog(10).div(this.requires().slog(10)).root(308).pow(pow).floor().mul(mult).floor()
+     if(player.points.lt(this.requires())) return n(0)
+        return n(1)
     },
     getNextAt() {
-        var mult = this.gainMult()
-        var pow = this.gainExp()
-        return ten.tetr(this.getResetGain().add(1).div(mult).root(pow).pow(308).mul(this.requires().slog(10))).sub(10)
+      
+        return this.requires()
     },
     effect1(){
       var root = n(2).pow(player.overflow.total.add(1).pow(0.6).sub(1))
@@ -32,14 +30,14 @@ addLayer("overflow", {
       return root
     },
     effectDescription() {
-        return `点数的指数塔层数变为其 ${format(this.effect1())} 次根<br>元性质变为其 ${format(this.effect2())} 次方`
+        return `点数变为其 ${format(this.effect1())} 次根<br>元性质变为其 ${format(this.effect2())} 次方`
     },
     color: "red",
     resource: "超限", // Name of prestige currency
     type: "custom", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     requires(){
       //if(player.mm.total.gte(5)) return n('1.8e308')
-      return n('10{2}1.8e308')
+      return n('1.798e308')
     },
     baseResource:"点数",
     baseAmount(){return player.points},
@@ -75,7 +73,7 @@ addLayer("overflow", {
     achievements:{
         11:{
             name:'新的起点',
-            tooltip:'获得1超限.<br>奖励:你每秒获得10%的元性质.元性质x10.购买元性质购买项不再消耗元性质.解锁元性质挑战11.(元性质挑战不被元元重置)',
+            tooltip:'获得1超限.<br>奖励:你每秒获得100%的元性质.元性质x10.购买元性质购买项不再消耗元性质.解锁元性质挑战11.(元性质挑战不被元元重置)',
             done(){return player.overflow.total.gte(1)&& player.overflow.resetTime>1 && this.unlocked()},
             unlocked(){return true},
         },

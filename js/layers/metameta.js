@@ -249,7 +249,7 @@ addLayer("m", {
             },
             effect(x = getBuyableAmount('m', this.id)) {
                 x = x.add(this.extraLevel())
-                if (player.m.buyables[23].gt(0) && !hasUpgrade('mm', 13)) x =x.mul(buyableEffect('m', 11)).mul(buyableEffect('m', 14))
+                if (player.m.buyables[23].gt(0) ) x =x.mul(buyableEffect('m', 11)).mul(buyableEffect('m', 14))
                 return getBuyableAmount('m', 13).add(layers.m.buyables[13].extraLevel()).add(10).log10().pow(x.add(1).root(2.5).sub(1).mul(1.25))
             },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
@@ -281,7 +281,7 @@ addLayer("m", {
             },
             effect(x = getBuyableAmount('m', this.id)) {
                 x = x.add(this.extraLevel())
-                if (player.m.buyables[23].gt(0) && !hasUpgrade('mm', 13)) x =x.mul(buyableEffect('m', 11)).mul(buyableEffect('m', 14))
+                if (player.m.buyables[23].gt(0) ) x =x.mul(buyableEffect('m', 11)).mul(buyableEffect('m', 14))
                 var time = n(player.m.resetTime)
                 if (hasAchievement('overflow', 31)) time = n(player.mm.resetTime)
                 time = time.div(150).pow(0.8).mul(150)
@@ -336,7 +336,7 @@ addLayer("m", {
             display() {
                 return `元性质在公式里的作用增加.<br>
                 起效元性质指数^ ${format(this.effect())}. (下一级${format(this.effect(getBuyableAmount('m', this.id).add(1)))})<br>
-                ${hasUpgrade('mm', 13) ? '' : '在至少有一级*非额外*元化元后,元性质增幅器和元空间升级乘数加成前2个购买效果,在该升级前触发.<br>'}
+                在至少有一级*非额外*元化元后,元性质增幅器和元空间升级乘数加成前2个购买效果,在该升级前触发.<br>
                     等级:${format(player.m.buyables[this.id])}/${this.purchaseLimit()}${this.extraLevel().eq(0) ? '' : ` (+${format(this.extraLevel())})`}<br>
                     价格: ${format(this.cost())} 元性质`
             },
@@ -389,7 +389,7 @@ addLayer("m", {
     },
     passiveGeneration() {
         if (hasUpgrade('mm', 22)) return 1
-        if (hasAchievement('overflow', 11)) return 0.1
+        if (hasAchievement('overflow', 11)) return 1
         return 0
     },
     doReset(layer) {
@@ -443,7 +443,7 @@ addLayer("m", {
             challengeDescription: '时间速率变为其8次根.你基于挑战中取得的最高点数获得加成.',
             rewardDescription() { return `当前最高${format(getCP('m', 11))},元性质x${format(this.rewardEffect())}` },
             rewardEffect() {
-                var eff = expRoot(getCP('m', 11).add(10).slog(10).root(9), 1.2)
+                var eff = getCP('m', 11).add(10).log(10)
                 if (hasAchievement('overflow', 24)) eff = eff.pow(achievementEffect('overflow', 24))
                 return eff
             },

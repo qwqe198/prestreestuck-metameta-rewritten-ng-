@@ -40,7 +40,7 @@ addLayer("mm", {
       if(hasAchievement('overflow',31)) return n(1.12)
       if(hasAchievement('overflow',13)) return n(1.06)
       if(player.mm.total.lt(5)) return n(1)
-      var er = n(1.5).pow(player.mm.total.sub(3).root(5).sub(1))
+      var er = n(1.5).pow(player.mm.total.sub(3).root(6).sub(1))
       return er
     },
     effectDescription() {
@@ -159,9 +159,9 @@ addLayer("mm", {
         },
         13: {
             title: "<p style='transform: scale(-1, -1)'><alternate>元元化元</alternate>",
-            description: `去除第一个元化元的特殊效果,但你基于元元总数获得额外的元化元和加速子.`,
+            description: `你基于元元总数获得额外的元化元和加速子.`,
             effect(){
-              return player.mm.total.div(3)
+              return player.mm.total.div(1.4)
             },
             effectDisplay(){
               return `+ ${format(upgradeEffect(this.layer,this.id))} 元化元和加速子`
@@ -173,7 +173,7 @@ addLayer("mm", {
             title: "<p style='transform: scale(-1, -1)'><alternate>弦曲率</alternate>",
             description: `弦同时加成时间速率.`,
             effect(){
-              return layers.dim.effect().pow(2)
+              return layers.dim.effect().pow(4.4)
             },
             effectDisplay(){
               return `时间速率x ${format(upgradeEffect(this.layer,this.id))}.`

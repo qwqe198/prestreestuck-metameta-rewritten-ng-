@@ -18,7 +18,7 @@ let VERSION = {
 
 let changelog = `<h1>更新记录(时不时懒得写):</h1><br>
  <h3>v0.14</h3><br>
-		- 大型重平衡.当前endgame:1超限前.<br><br>
+		- 大型重平衡.当前endgame:1超限.<br><br>
     <h3>v0.13</h3><br>
 		- 大型重平衡.当前endgame:1.80e308t.<br><br>
     <h3>v0.12</h3><br>
@@ -61,7 +61,7 @@ var displayThings = [
     function () { return `t = ${format(player.m.time)}` },
     function () { return `当前元性质上限: ${format(layers.m.maxValue())}` },
     function () { return `当前点数上限: F1.79e308` },
-    function () { return `当前endgame: 1超限前(1.79e308),永恒咕咕咕中(` },
+    function () { return `当前endgame: 1超限,永恒咕咕咕中(` },
 ]
 
 // Determines when the game "ends"
